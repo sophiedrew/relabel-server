@@ -39,4 +39,10 @@ router.post("/new", isLoggedIn, (req, res) => {
   });
 });
 
+router.get("/all-products", (req, res, next) => {
+  Product.find().then((allProducts) => {
+    res.json(allProducts);
+  });
+});
+
 module.exports = router;
