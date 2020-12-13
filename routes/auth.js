@@ -35,12 +35,25 @@ router.get("/session", (req, res) => {
 });
 
 router.post("/signup", shouldNotBeLoggedIn, (req, res) => {
-  const { username, password } = req.body;
+  const {
+    email,
+    password,
+    firstName,
+    lastName,
+    street,
+    houseNo,
+    postalCode,
+    city,
+    creditCardNo,
+    creditCardExpMonth,
+    creditCardExpYear,
+    creditCardCVC,
+  } = req.body;
 
-  if (!username) {
+  if (!email) {
     return res
       .status(400)
-      .json({ errorMessage: "Please provide your username." });
+      .json({ errorMessage: "Please provide your E-Mail." });
   }
 
   if (password.length < 8) {
@@ -62,10 +75,10 @@ router.post("/signup", shouldNotBeLoggedIn, (req, res) => {
   */
 
   // Search the database for a user with the username submitted in the form
-  User.findOne({ username }).then((found) => {
+  User.findOne({ email }).then((found) => {
     // If the user is found, send the message username is taken
     if (found) {
-      return res.status(400).json({ errorMessage: "Username already taken." });
+      return res.status(400).json({ errorMessage: "E-Mail already taken." });
     }
 
     // if user is not found, create a new user - start with hashing the password
@@ -75,8 +88,18 @@ router.post("/signup", shouldNotBeLoggedIn, (req, res) => {
       .then((hashedPassword) => {
         // Create a user and save it in the database
         return User.create({
-          username,
+          email,
           password: hashedPassword,
+          firstName,
+          lastName,
+          street,
+          houseNo,
+          postalCode,
+          city,
+          creditCardNo,
+          creditCardExpMonth,
+          creditCardExpYear,
+          creditCardCVC,
         });
       })
       .then((user) => {
@@ -94,7 +117,7 @@ router.post("/signup", shouldNotBeLoggedIn, (req, res) => {
         if (error.code === 11000) {
           return res.status(400).json({
             errorMessage:
-              "Username need to be unique. The username you chose is already in use.",
+              "E-Mail need to be unique. The E-Mail you chose is already in use.",
           });
         }
         return res.status(500).json({ errorMessage: error.message });
@@ -103,12 +126,12 @@ router.post("/signup", shouldNotBeLoggedIn, (req, res) => {
 });
 
 router.post("/login", shouldNotBeLoggedIn, (req, res, next) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  if (!username) {
+  if (!email) {
     return res
       .status(400)
-      .json({ errorMessage: "Please provide your username." });
+      .json({ errorMessage: "Please provide your E-Mail." });
   }
 
   // Here we use the same logic as above
@@ -120,7 +143,7 @@ router.post("/login", shouldNotBeLoggedIn, (req, res, next) => {
   }
 
   // Search the database for a user with the username submitted in the form
-  User.findOne({ username })
+  User.findOne({ email })
     .then((user) => {
       // If the user isn't found, send the message that user provided wrong credentials
       if (!user) {
