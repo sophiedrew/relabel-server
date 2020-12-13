@@ -12,9 +12,9 @@ const productSchema = new Schema({
   price: Number,
   size: {
     type: String,
-    enum: ["XS", "S", "M", "L", "XL"],
+    enum: ["Size XS", "Size S", "Size M", "Size L", "Size XL"],
   },
-  colour: [String],
+  colour: String,
   material: String,
   brand: String,
   origin: {
@@ -26,7 +26,7 @@ const productSchema = new Schema({
     type: String,
     enum: ["hoodies", "jackets", "pants", "shirts", "sweater"],
   },
-  suitable: [String],
+  suitable: String,
 });
 
 const Product = model("Product", productSchema);
