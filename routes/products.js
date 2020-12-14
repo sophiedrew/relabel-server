@@ -45,4 +45,10 @@ router.get("/all-products", (req, res, next) => {
   });
 });
 
+router.get("/:id", (req, res) => {
+  Product.findById(req.params.id).then((SingleProduct) => {
+    res.json(SingleProduct);
+  });
+});
+
 module.exports = router;
