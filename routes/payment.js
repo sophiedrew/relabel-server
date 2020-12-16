@@ -7,9 +7,7 @@ const User = require("../models/User.model");
 const isLoggedIn = require("../middlewares/isLoggedIn");
 
 // This is your real test secret API key.
-const stripe = require("stripe")(
-  "sk_test_51Hyf8SJKyKSco4KGcAbi2KtNspDuzMkQXemhnY35ooEAzkYbJGRgG3OxfREpwFM7SPmOKENZktLXy1WzuB8nvdMW00aZy0xgsQ"
-);
+const stripe = require("stripe")(process.env.STRIPE_API_KEY);
 
 router.use(express.static("."));
 router.use(express.json());
