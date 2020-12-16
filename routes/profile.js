@@ -3,16 +3,16 @@ const User = require("../models/User.model");
 
 const router = require("express").Router();
 
-router.get("/:id", isLoggedIn, (req, res) => {
+router.get("/update/:id", isLoggedIn, (req, res) => {
   User.findById(req.params.id).then((user) => {
     res.json(user);
   });
 });
 
-router.put("/:id", isLoggedIn, (req, res) => {
+router.put("/update/:id", isLoggedIn, (req, res) => {
   User.findByIdAndUpdate(req.params.id, req.body, { new: true }).then(
     (userUpdated) => {
-      res.json({ message: "all good", userUpdated });
+      res.json({ userUpdated });
     }
   );
 });

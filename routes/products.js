@@ -51,4 +51,18 @@ router.get("/:id", (req, res) => {
   });
 });
 
+router.delete("/:id", (req, res) => {
+  Product.findByIdAndRemove(req.params.id).then((deletedProduct) => {
+    res.json({ message: "Product successfully deleted" });
+  });
+});
+
+router.put("/edit/:id", (req, res) => {
+  Product.findByIdAndUpdate(req.params.id, req.body, { new: true }).then(
+    (productUpdated) => {
+      res.json({ productUpdated });
+    }
+  );
+});
+
 module.exports = router;

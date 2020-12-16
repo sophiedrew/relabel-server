@@ -8,6 +8,10 @@ const userSchema = new Schema(
       unique: true,
     },
     password: String,
+    /* type: {
+      type: String,
+      default: "customer",
+    }, */
     firstName: String,
     lastName: String,
     street: String,

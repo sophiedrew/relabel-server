@@ -26,6 +26,10 @@ router.get("/session", (req, res) => {
 
   Session.findById(accessToken)
     .populate("user")
+    /*     .populate({
+      path: "user",
+      populate: { path: "receipts" },
+    }) */
     .then((session) => {
       if (!session) {
         return res.status(404).json({ errorMessage: "Session does not exist" });
@@ -73,9 +77,11 @@ router.post("/signup", shouldNotBeLoggedIn, (req, res) => {
     });
   }
   */
+  console.log(email);
 
   // Search the database for a user with the username submitted in the form
   User.findOne({ email }).then((found) => {
+    console.log(found);
     // If the user is found, send the message username is taken
     if (found) {
       return res.status(400).json({ errorMessage: "E-Mail already taken." });
@@ -115,6 +121,7 @@ router.post("/signup", shouldNotBeLoggedIn, (req, res) => {
           return res.status(400).json({ errorMessage: error.message });
         }
         if (error.code === 11000) {
+          console.log(error.message);
           return res.status(400).json({
             errorMessage:
               "E-Mail need to be unique. The E-Mail you chose is already in use.",
