@@ -8,24 +8,21 @@ const userSchema = new Schema(
       unique: true,
     },
     password: String,
-    /* type: {
-      type: String,
-      default: "customer",
-    }, */
+    userType: String,
     firstName: String,
     lastName: String,
     street: String,
     houseNo: String,
     postalCode: String,
     city: String,
-    creditCardNo: String,
+    /* creditCardNo: String,
     creditCardMonth: {
       type: Number,
     },
     creditCardYear: {
       type: String,
     },
-    creditCardCVC: String,
+    creditCardCVC: String, */
 
     receipts: [
       {

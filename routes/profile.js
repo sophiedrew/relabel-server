@@ -9,6 +9,14 @@ router.get("/update/:id", isLoggedIn, (req, res) => {
   });
 });
 
+router.get("/:id", (req, res) => {
+  User.findById(req.params.id)
+    .populate("receipts")
+    .then((user) => {
+      res.json(user);
+    });
+});
+
 router.put("/update/:id", isLoggedIn, (req, res) => {
   User.findByIdAndUpdate(req.params.id, req.body, { new: true }).then(
     (userUpdated) => {

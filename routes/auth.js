@@ -48,10 +48,7 @@ router.post("/signup", shouldNotBeLoggedIn, (req, res) => {
     houseNo,
     postalCode,
     city,
-    creditCardNo,
-    creditCardExpMonth,
-    creditCardExpYear,
-    creditCardCVC,
+    userType,
   } = req.body;
 
   if (!email) {
@@ -102,10 +99,7 @@ router.post("/signup", shouldNotBeLoggedIn, (req, res) => {
           houseNo,
           postalCode,
           city,
-          creditCardNo,
-          creditCardExpMonth,
-          creditCardExpYear,
-          creditCardCVC,
+          userType,
         });
       })
       .then((user) => {

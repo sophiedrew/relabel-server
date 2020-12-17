@@ -47,13 +47,13 @@ router.post("/success", isLoggedIn, (req, res) => {
     products: req.body.products,
     user: req.user._id,
   }).then((newReceipt) => {
-    // console.log("THIS ONE", reg.body.transSpot);
     User.findByIdAndUpdate(req.user._id, {
       $push: { receipts: newReceipt._id },
       new: true,
     })
       .then(() => {
-        Product.deleteMany({ _id: Ids });
+        console.log("DELETE GOT CALLED");
+        Product.deleteMany({ _id: { $in: Ids } });
       })
       .then(() => {
         res.json("all good");
